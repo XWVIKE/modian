@@ -7,7 +7,11 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    isiOS:app.globalData.isiOS,
+    system:app.globalData.system,
+    btn:app.globalData.btn,
+    hotSearch:'微信小程序'
   },
 
   onLoad: function() {
@@ -17,7 +21,30 @@ Page({
       })
       return
     }
-
+    //获取系统数据
+    // try{
+    //   const system = wx.getSystemInfoSync();
+    //   const btn = wx.getMenuButtonBoundingClientRect()
+    //   // console.log(btn);
+    //   this.setData({isiOS:system.system.indexOf('iOS')>=0?true:false})
+    //   this.setData({system:system});
+    //   this.setData({btn:btn})
+    // }catch(e){
+    //   return
+    // }
+    //获取openid
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+        
+      }
+    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -46,26 +73,6 @@ Page({
     }
   },
 
-  onGetOpenid: function() {
-    // 调用云函数
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
-        wx.navigateTo({
-          url: '../userConsole/userConsole',
-        })
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
-      }
-    })
-  },
 
   // 上传图片
   doUpload: function () {

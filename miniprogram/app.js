@@ -1,7 +1,7 @@
 //app.js
 App({
   onLaunch: function () {
-    
+    this.globalData = {}
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -14,7 +14,16 @@ App({
         traceUser: true,
       })
     }
-
-    this.globalData = {}
+    try {
+      const system = wx.getSystemInfoSync();
+      const btn = wx.getMenuButtonBoundingClientRect()
+      console.log(btn);
+      this.globalData['isiOS'] = system.system.indexOf('iOS') >= 0 ? true : false;
+      this.globalData['system'] = { ...system };
+      this.globalData['btn'] = { ...btn }
+    } catch (e) {
+      return
+    }
+  
   }
 })

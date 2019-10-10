@@ -9,6 +9,9 @@ Page({
     counterId: '',
     openid: '',
     count: null,
+    isiOS: app.globalData.isiOS,
+    system: app.globalData.system,
+    btn: app.globalData.btn,
     queryResult: '',
   },
 

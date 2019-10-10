@@ -1,4 +1,10 @@
 <!--pages/databaseGuide/databaseGuide.wxml-->
+<header
+    height="{{btn.height}}"
+    bottom="{{btn.bottom}}"
+    top="{{btn.top}}"
+    width="{{btn.width}}"
+  ></header>
 <view class="container">
 
   <!-- 导航 -->
