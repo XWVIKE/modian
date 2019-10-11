@@ -1,0 +1,18 @@
+<!--miniprogram/pages/home/home.wxml-->
+  <header
+    height="{{btn.height}}"
+    bottom="{{btn.bottom}}"
+    top="{{btn.top}}"
+    width="{{btn.width}}"
+  ></header>
+<view class="home">
+  <view class="switch-image">
+    <swiper bindchange="aa" current="0" previous-margin="50px" next-margin="50px" circular="true" autoplay="true" indicator-dots="true" class="swiper-box">
+      <block wx:for="{{rec}}" wx:key="*this" class="swiper=block">
+        <swiper-item class="swiper-item">
+          <image src="{{item.img}}" class="swiper-image"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>
