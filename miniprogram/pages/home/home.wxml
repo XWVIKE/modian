@@ -7,10 +7,10 @@
   ></header>
 <view class="home">
   <view class="switch-image">
-    <swiper bindchange="aa" current="0" previous-margin="50px" next-margin="50px" circular="true" autoplay="true" indicator-dots="true" class="swiper-box">
-      <block wx:for="{{rec}}" wx:key="*this" class="swiper=block">
-        <swiper-item class="swiper-item">
-          <image src="{{item.img}}" class="swiper-image"></image>
+    <swiper duration="500" bindchange="aa" current="0" previous-margin="0px" next-margin="70px" circular="true" autoplay="true" indicator-dots="true" class="swiper-box">
+      <block wx:for="{{rec}}" wx:key="*this" class="swiper-block">
+        <swiper-item style="width:50vw" class="swiper-item">
+          <image src="{{item.img}}" class="{{detail===index?'beforeImg':'swiper-image'}}"></image>
         </swiper-item>
       </block>
     </swiper>

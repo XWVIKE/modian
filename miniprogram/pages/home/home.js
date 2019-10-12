@@ -11,19 +11,20 @@ Page({
     isiOS: app.globalData.isiOS,
     system: app.globalData.system,
     btn: app.globalData.btn,
+    detail:0,
     rec:[
       {
-        img:'../../images/code-db-inc-dec.png',
+        img:'../../images/1.jpg',
         link:''
       },
       {
-        img:'../../images/code-db-onAdd.png',
+        img:'../../images/2.jpg',
         link:''
       },
       {
-        img:'../../images/code-db-onQuery.png',
+        img:'../../images/3.jpg',
         link:''
-      }
+      },
     ]
   },
 
@@ -34,7 +35,7 @@ Page({
 
   },
   aa:function(e){
-    console.log(e.detail)
+   this.setData({detail:e.detail.current})
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
