@@ -1,0 +1,23 @@
+<!--miniprogram/pages/edit/edit.wxml-->
+<!-- 导航 -->
+<header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
+<!-- 编辑 -->
+<view style="padding-top:{{btn.bottom}}px" class="selectImg">
+  <view bindtap="changeShowStatus" class="selectImg-tab">
+    <image class="selectImg-tab-img" src="{{showStatus?'../../images/left.png':'../../images/right.png'}}"></image>
+  </view>
+  <view class="selectImg-box"></view>
+</view>
+
+<view class="edit" style="margin-top:{{btn.bottom+10}}px">
+  <view class="edit-title">
+    <!-- <view class="titlePic-box">
+      <image class="titlePic" src="{{showStatus===0?'../../images/addImage.png':''}}"></image>
+    </view> -->
+    <input placeholder="请输入标题" class="title-input"></input>
+  </view>
+
+  <view class="edit-text">
+
+  </view>
+</view>

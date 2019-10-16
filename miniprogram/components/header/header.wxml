@@ -1,8 +1,10 @@
 <!---自定义header组件-->
 <view style="height:{{bottom+10}}px" class="header">
-  <view wx:if="{{status===0}}" style="height:{{height}}px;top:{{top}}px;line-height:{{height}}px" class="search">
+  <navigator url="../../pages/search/search">
+    <view wx:if="{{status===0}}" style="height:{{height}}px;top:{{top}}px;line-height:{{height}}px" class="search">
     {{textInputValue}}</view>
-  <view wx:elif="{{status===1}}" style="height:{{height}}px;top:{{top}}px;width:{{width}}px" class="leftBtn">
+  </navigator>
+  <view wx:if="{{status===1||status===-1}}" style="height:{{height}}px;top:{{top}}px;width:{{width}}px" class="leftBtn">
     <image class="back" bindtap="back" src="../../images/back.png" style="height:{{height-10}}px;width:{{height-10}}px"></image>
     <view class="mid" style="height:{{height-10}}px"></view>
     <image class="home" bindtap="home" src="../../images/home.png" style="height:{{height-10}}px;width:{{height-10}}px"></image> 

@@ -25,6 +25,22 @@ Page({
         img:'../../images/3.jpg',
         link:''
       },
+    ],
+    hot:[
+      {
+        num:1,
+        url:'../../images/1.jpg',
+        title:'开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。',
+        text:'剩余的空间是其他文字，或者内容。',
+        link:''
+      },
+      {
+        num:2,
+        url:'../../images/2.jpg',
+        title:'第二条测试文章题目',
+        text:'这个比较短。开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。',
+        link:''
+      }
     ]
   },
 
@@ -36,6 +52,11 @@ Page({
   },
   aa:function(e){
    this.setData({detail:e.detail.current})
+  },
+  scrollTop:function(){
+    wx.pageScrollTo({
+      scrollTop: 0,
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

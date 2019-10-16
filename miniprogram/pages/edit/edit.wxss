@@ -1,0 +1,69 @@
+/* miniprogram/pages/edit/edit.wxss */
+
+page {
+  background-color: #fff;
+}
+
+.edit {
+  width: 100vw;
+  position: relative;
+}
+
+.edit-title {
+  width: 100vw;
+  height: 70rpx;
+  position: relative;
+}
+
+/* .titlePic-box {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  background-color: rgb(226, 226, 226);
+  border-radius: 20px;
+}
+
+.titlePic {
+  width: 100%;
+  height: 100%;
+} */
+.title-input{
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: translateY(-50%) translateX(-50%);
+  font-size: 14pt;
+  /* text-indent: 10px; */
+  width: 90vw;
+  padding-left: 10px;
+  height: 70rpx;
+  background-color: rgb(241, 241, 241);
+}
+.selectImg{
+  width: 80vw;
+  z-index: 90;
+  height: 100vh;
+  background-color: rgb(245, 245, 245);
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.selectImg-tab{
+  
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  background-color: rgb(245, 245, 245);
+  top: 200px;
+  left: -68rpx;
+  border-radius: 5px 0 0 5px;
+}
+.selectImg-tab-img{
+  width: 100%;
+  height: 100%;
+}

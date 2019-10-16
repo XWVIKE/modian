@@ -1,0 +1,17 @@
+<!--miniprogram/pages/search/search.wxml-->
+<!-- 导航栏 -->
+<header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
+<!-- 搜索框 -->
+<view style="margin-top:{{btn.bottom+10}}px" class="search-page">
+  <view style="height:{{btn.height-5}}px" class="search-box">
+    <input placeholder="{{placeholder}}" style="height:{{btn.height-5}}px;line-height:{{btn.height-5}}px" class="search-input" value=""></input>
+    <icon class="search-icon" type="search" size="15"></icon>
+    <text class="search-close">取消</text>
+  </view>
+  <!-- 热门标签 -->
+  <view class="hotTag">
+    <view class="hotSearch">热门搜索：</view>
+    <text style="height:{{btn.height-5}}px;line-height:{{btn.height-5}}px" class="hotTag-item" wx:for="{{hotTag}}" wx:key="*this">{{item}}</text>
+  </view>
+
+</view>

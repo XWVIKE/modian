@@ -1,7 +1,9 @@
 /* pages/databaseGuide/databaseGuide.wxss */
 
 @import "../../style/guide.wxss";
-
+page{
+  margin-top: 100px;
+}
 .guide .counter {
   margin-top: 50rpx;
   display: flex;

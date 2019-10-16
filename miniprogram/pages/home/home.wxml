@@ -1,18 +1,46 @@
 <!--miniprogram/pages/home/home.wxml-->
-  <header
-    height="{{btn.height}}"
-    bottom="{{btn.bottom}}"
-    top="{{btn.top}}"
-    width="{{btn.width}}"
-  ></header>
+<!-- 导航 -->
+<header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
+<!-- 轮播图推荐内容 -->
 <view class="home">
   <view class="switch-image">
-    <swiper duration="500" bindchange="aa" current="0" previous-margin="0px" next-margin="70px" circular="true" autoplay="true" indicator-dots="true" class="swiper-box">
+    <swiper duration="500" bindchange="aa" current="0" previous-margin="0px" next-margin="70px" circular="true" autoplay="true" class="swiper-box">
       <block wx:for="{{rec}}" wx:key="*this" class="swiper-block">
         <swiper-item style="width:50vw" class="swiper-item">
-          <image src="{{item.img}}" class="{{detail===index?'beforeImg':'swiper-image'}}"></image>
+          <image mode="aspectFill" lazy-load="true" src="{{item.img}}" class="{{detail===index?'beforeImg':'swiper-image'}}">
+            <view style="{{detail===index?'display:block':'display:none'}}" class="swiper-text">bbbbbbb</view>
+          </image>
         </swiper-item>
       </block>
     </swiper>
+  </view>
+  <!-- 热门内容 -->
+  <view class="hotEssay">
+    <view wx:for="{{hot}}" wx:key="*this" class="hotItem">
+      <view class="itemImg">
+        <image class="itemImg-o" mode="aspectFill" src="{{item.url}}"></image>
+      </view>
+      <view class="itemTitle">{{item.title}}</view>
+      <view class="itemText">{{item.text}}</view>
+      <view class="itemNum">{{item.num}}</view>
+    </view>
+  </view>
+  <!-- 左浮动导航 -->
+  <view class="leftFloat">
+    <view class="leftFloat-box leftFloat-me">
+      <image mode="aspectFill" class="leftFloat-img l-m" src="../../images/me.png"></image>
+    </view>
+    <view class="leftFloat-box leftFloat-follow">
+      <image mode="aspectFill" class="leftFloat-img l-f" src="../../images/follow.png"></image>
+    </view>
+    <view bindtap="scrollTop" class="leftFloat-box leftFloat-top">
+      <image mode="aspectFill" class="leftFloat-img l-t" src="../../images/top.png"></image>
+    </view>
+    <navigator url="../edit/edit" open-type="navigate" >
+      <view class="leftFloat-box leftFloat-add">
+        <image class="leftFloat-img" src="../../images/add.png"></image>
+      </view>
+    </navigator>
+
   </view>
 </view>
