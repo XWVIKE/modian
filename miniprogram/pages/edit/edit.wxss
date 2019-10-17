@@ -1,4 +1,6 @@
 /* miniprogram/pages/edit/edit.wxss */
+@import "../../common/lib/weui.wxss";
+@import "./assets/iconfont.wxss";
 
 page {
   background-color: #fff;
@@ -30,40 +32,126 @@ page {
   width: 100%;
   height: 100%;
 } */
-.title-input{
+
+.title-input {
   border-radius: 10px;
   position: absolute;
   top: 50%;
-  left: 50%;
+  right: 20px;
   overflow: hidden;
-  transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%);
   font-size: 14pt;
   /* text-indent: 10px; */
-  width: 90vw;
+  width: 80vw;
   padding-left: 10px;
   height: 70rpx;
   background-color: rgb(241, 241, 241);
 }
-.selectImg{
+
+.showselectImg {
   width: 80vw;
   z-index: 90;
   height: 100vh;
   background-color: rgb(245, 245, 245);
   position: fixed;
   top: 0;
-  right: 0;
+  /* right: 0; */
+  transform: translateX(-100%);
+  transition: transform 500ms;
 }
-.selectImg-tab{
-  
+
+.hideselectImg {
+  width: 80vw;
+  z-index: 90;
+  height: 100vh;
+  background-color: rgb(245, 245, 245);
+  position: fixed;
+  top: 0;
+  /* right: -80vw; */
+  transform: translateX(0);
+  transition: transform 500ms;
+}
+
+.selectImg-tab {
   width: 70rpx;
   height: 70rpx;
   position: absolute;
   background-color: rgb(245, 245, 245);
-  top: 200px;
-  left: -68rpx;
-  border-radius: 5px 0 0 5px;
+  /* top: 0px; */
+  right: -68rpx;
+  border-radius:0  5px 5px 0;
 }
-.selectImg-tab-img{
+
+.selectImg-tab-img {
   width: 100%;
   height: 100%;
+}
+
+.showmask {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.377);
+  transition: all 500ms;
+}
+
+.hidemask {
+  display: none;
+  background-color: rgb(78, 78, 78);
+  transition: all 500ms;
+}
+.edit-text{
+  width: 90vw;
+  height: 70vh;
+  background-color: rgb(241, 241, 241);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 12px 15px;
+}
+.iconfont {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
+}
+.ql-active {
+  color: #22C704;
+}
+.toolbar {
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  background-color: #fff;
+  justify-content: space-between;
+  border: 1px solid #ECECEC;
+  border-left: none;
+  border-right: none;
+}
+.ql-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  padding-bottom: 50px;
+  overflow: auto;
+  /* padding: 10px 10px 20px 10px; */
+  /* border: 1px solid #ECECEC; */
 }
