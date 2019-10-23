@@ -1,30 +1,67 @@
 <!--miniprogram/pages/edit/edit.wxml-->
 <!-- 导航 -->
 <header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
-<!-- 编辑 -->
-<view style="padding-top:{{btn.bottom}}px" class="{{showStatus?'showselectImg':'hideselectImg'}}">
+<!-- 发送按钮 -->
+<view class="send">
+  <image class="send-img" catchtap="sendArt" src="../../images/send.png"></image>
+</view>
+<!-- 侧边栏 -->
+<view style="padding-top:{{btn.bottom+10}}px" class="{{showStatus?'showselectImg':'hideselectImg'}}">
   <view style="top:{{btn.bottom+10}}px" bindtap="changeShowStatus" class="selectImg-tab">
     <image class="selectImg-tab-img" src="{{!showStatus?'../../images/left.png':'../../images/right.png'}}"></image>
   </view>
-  <view class="selectImg-box"></view>
+  <view class="selectImg-box">
+    <view class="Article-options-box">
+      <view class="Article-options">
+        <switch  bindchange="switchChange" data-index="0"></switch>
+        <text>匿名文章</text>
+      </view>
+      <view class="Article-options">
+        <switch  bindchange="switchChange" data-index="1"></switch>
+        <text>隐藏文章时间</text>
+      </view>
+      <view class="Article-options">
+        <switch  bindchange="switchChange" data-index="2"></switch>
+        <text>不允许留言</text>
+      </view>
+      <view class="Article-options">
+        <switch  bindchange="switchChange" data-index="3"></switch>
+        <text>成为一颗砂粒</text>
+      </view>
+    </view>
+  </view>
+  <view class="titleImg-up">
+    <text class="titleImg-up-text">选择文章封面图片</text>
+    <view  class="titleImg-up-box">
+      <view bindtap="selectImg" class="titleImg-up-box-list" wx:for="{{imageList}}" wx:key="*this" data-index="{{index}}">
+        <image mode="aspectFill" class="titleImg-up-box-item" src="{{item}}"></image>
+        <view style="{{index===selectImgIndex?'display:block':''}}" class="select-icon"><icon class="select-icon-item" type="success"></icon></view>
+      </view>
+      <view catchtap="doUpload" class="addImg">
+      </view>
+    </view>
+  </view>
 </view>
+<!-- 黑色遮罩 -->
 <view class="{{!showStatus?'showmask':'hidemask'}}">
 </view>
+<!-- 编辑 -->
 <view class="edit" style="margin-top:{{btn.bottom+10}}px">
   <view class="edit-title">
-    <input placeholder="请输入标题……" class="title-input"></input>
+    <input bindinput="titleInput" confirm-type="done" placeholder="请输入标题……" class="title-input"></input>
   </view>
-
+  <!-- 内容编辑区域 -->
   <view class="edit-text">
-    <editor show-img-size="true" show-img-resize="true" show-img-toolbar="true" id="editor" bindstatuschange="onStatusChange" bindready="onEditorReady" placeholder="请输入内容……"></editor>
+    <editor show-img-size="true" show-img-resize="true" show-img-toolbar="true" id="editor" bindstatuschange="onStatusChange" bindready="onEditorReady" bindinput="onContentChange" placeholder="请输入内容……"></editor>
   </view>
-  <scroll-view scroll-x="true" class="toolbar" catchtouchend="format" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
+  <!-- 工具栏区域 -->
+  <scroll-view scroll-x="true" class="toolbar" catchtap="format" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
     <i class="iconfont icon-undo" bindtap="undo"></i>
     <i class="iconfont icon-redo" bindtap="redo"></i>
-
+     <i class="iconfont icon-shanchu" bindtap="clear"></i>
     <i class="iconfont icon-outdent" data-name="indent" data-value="-1"></i>
     <i class="iconfont icon-indent" data-name="indent" data-value="+1"></i>
-    <i class="iconfont icon-charutupian" catchtouchend="insertImage"></i>
+    <i class="iconfont icon-charutupian" catchtap="insertImage"></i>
     <i class="iconfont icon-format-header-1 {{formats.header === 1 ? 'ql-active' : ''}}" data-name="header" data-value="{{1}}"></i>
     <i class="iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>
     <i class="iconfont icon-format-header-3 {{formats.header === 3 ? 'ql-active' : ''}}" data-name="header" data-value="{{3}}"></i>

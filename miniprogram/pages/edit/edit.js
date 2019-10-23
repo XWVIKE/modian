@@ -13,10 +13,79 @@ Page({
     showStatus: true,
     formats: {},
     readOnly: false,
-    placeholder: '开始输入...',
     editorHeight: 300,
     keyboardHeight: 0,
-    isIOS: false
+    isIOS: false,
+    files: [],
+    // 文章信息
+    openid: app.globalData.openid,
+    titleImage: '',
+    title: '',
+    content: '',
+    message: [],
+    time:'',
+    isIncognito: false,
+    hideTime: false,
+    unallowMessage: false,
+    sandMod: false,
+    like:0,
+
+    selectImgIndex: null,
+    imageList: [...Array(5).keys()].map((i) => {
+      return Math.floor(Math.random() * 100)
+    }).map((i) => {
+      return `https://picsum.photos/id/${i}/200/200`
+    })
+  },
+  titleInput:function(e){
+    this.setData({title:e.detail.value})
+  },
+  switchChange:function(e){
+    let index = e.currentTarget.dataset.index;
+    let bool = e.detail.value;
+    let temp = index === '0' ? 'isIncognito' : index === '1' ? 'isShowEditTime' : index === '2' ? 'allowMessage' :'sandMod';
+    this.setData({[temp]:bool})
+  },
+  sendArt:function(){
+    const d = this.data;
+    const that = this;
+    const db = wx.cloud.database();
+    db.collection('article').add({
+      data:{
+        openid:d.openid,
+        titleImage:d.titleImage,
+        title:d.title,
+        content:d.content,
+        message:[],
+        time:new Date().getTime(),
+        isIncognito: d.isIncognito,
+        hideTime: d.hideTime,
+        unallowMessage: d.unallowMessage,
+        sandMod: d.sandMod,
+        like:0,
+        reserved1: '',
+        reserved2: 0,
+        reserved3: {},
+        reserved4: [],
+      },
+      success:res=>{
+        that.setData({
+          content:'',
+          title:''
+        });
+        wx.setStorageSync("content","");
+        that.editorCtx.clear();
+        wx.showToast({
+          title: '发表成功'+res._id,
+        })
+      },
+      fail:e=>{
+        wx.showToast({
+          icon:'none',
+          title: '文章发表失败',
+        })
+      }
+    })
   },
   changeShowStatus: function() {
     this.setData({
@@ -31,7 +100,9 @@ Page({
   onLoad() {
     const platform = wx.getSystemInfoSync().platform
     const isIOS = platform === 'ios'
-    this.setData({ isIOS })
+    this.setData({
+      isIOS
+    })
     const that = this
     this.updatePosition(0)
     let keyboardHeight = 0
@@ -53,44 +124,79 @@ Page({
   },
   updatePosition(keyboardHeight) {
     const toolbarHeight = 50
-    const { windowHeight, platform } = wx.getSystemInfoSync()
+    const {
+      windowHeight,
+      platform
+    } = wx.getSystemInfoSync()
     let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : windowHeight
-    this.setData({ editorHeight, keyboardHeight })
+    this.setData({
+      editorHeight,
+      keyboardHeight
+    })
   },
   calNavigationBarAndStatusBar() {
     const systemInfo = wx.getSystemInfoSync()
-    const { statusBarHeight, platform } = systemInfo
+    const {
+      statusBarHeight,
+      platform
+    } = systemInfo
     const isIOS = platform === 'ios'
     const navigationBarHeight = isIOS ? 44 : 48
     return statusBarHeight + navigationBarHeight
   },
   onEditorReady() {
     const that = this
-    wx.createSelectorQuery().select('#editor').context(function (res) {
-      that.editorCtx = res.context
+    wx.createSelectorQuery().select('#editor').context(function(res) {
+      that.editorCtx = res.context;
+      if (wx.getStorageSync('content')) {
+        that.setData({ content: wx.getStorageSync("content")})
+        that.editorCtx.setContents({
+          html: wx.getStorageSync("content").html,
+          success: res => {
+            console.log(res)
+          },
+          fail: e => {
+            console.log(e);
+          }
+        })
+      }
     }).exec()
   },
   blur() {
     this.editorCtx.blur()
   },
   format(e) {
-    let { name, value } = e.target.dataset
+    let {
+      name,
+      value
+    } = e.target.dataset
     if (!name) return
     // console.log('format', name, value)
     this.editorCtx.format(name, value)
 
   },
-  onStatusChange(e) {
-    const formats = e.detail
-    this.setData({ formats })
-  },
-  insertDivider() {
-    this.editorCtx.insertDivider({
-      success: function () {
-        console.log('insert divider success')
+  clear() {
+    this.editorCtx.clear({
+      success() {
+        console.log('clear success')
       }
     })
   },
+  // 编辑内容样式改变
+  onStatusChange(e) {
+    const formats = e.detail;
+    this.setData({
+      formats
+    })
+  },
+  // 编辑内容改变
+  onContentChange(e) {
+    this.setData({
+      content: e.detail,
+    });
+    wx.setStorageSync("content", e.detail)
+  },
+
   undo() {
     this.editorCtx.undo()
   },
@@ -99,7 +205,7 @@ Page({
   },
   clear() {
     this.editorCtx.clear({
-      success: function (res) {
+      success: function(res) {
         console.log("clear success")
       }
     })
@@ -118,7 +224,7 @@ Page({
     const that = this
     wx.chooseImage({
       count: 1,
-      success: function (res) {
+      success: function(res) {
         that.editorCtx.insertImage({
           src: res.tempFilePaths[0],
           data: {
@@ -126,19 +232,72 @@ Page({
             role: 'god'
           },
           width: '80%',
-          success: function () {
+          success: function() {
             console.log('insert image success')
           }
         })
       }
     })
   },
+  doUpload: function() {
+    const that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function(res) {
+        wx.showLoading({
+          title: '正在上传',
+        });
+        const filePath = res.tempFilePaths[0];
+        const cloudPath = (Math.random() * 1000000).toString(32).substr(0, 4) + new Date().getTime() + filePath.match(/\.[^.]+?$/)[0];
+        wx.cloud.uploadFile({
+          cloudPath,
+          filePath,
+          success: res => {
+
+            that.setData({
+              imageList: [...that.data.imageList, filePath],
+              selectImgIndex: that.data.imageList.length,
+              titleImage:filePath,
+            });
+          },
+          fail: e => {
+            wx.showToast({
+              icon: 'none',
+              title: '上传失败',
+            })
+          },
+          complete: () => {
+            wx.hideLoading()
+          }
+        })
+      },
+      fail: e => {
+        console.error(e)
+      }
+    })
+  },
+  selectImg: function(e) {
+    let that = this;
+    let index = parseInt(e.currentTarget.dataset.index);
+    let url = this.data.imageList[index];
+    if (index === this.data.selectImgIndex) {
+      this.setData({
+        selectImgIndex: null,
+        titleImage:''
+      })
+    } else {
+      this.setData({
+        selectImgIndex: index,
+        titleImage:url
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-
-  },
+  onLoad: function(options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成

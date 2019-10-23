@@ -8,10 +8,10 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    isiOS:app.globalData.isiOS,
-    system:app.globalData.system,
-    btn:app.globalData.btn,
-    hotSearch:'微信小程序'
+    isiOS: app.globalData.isiOS,
+    system: app.globalData.system,
+    btn: app.globalData.btn,
+    hotSearch: '微信小程序',
   },
 
   onLoad: function() {
@@ -21,17 +21,8 @@ Page({
       })
       return
     }
-    //获取系统数据
-    // try{
-    //   const system = wx.getSystemInfoSync();
-    //   const btn = wx.getMenuButtonBoundingClientRect()
-    //   // console.log(btn);
-    //   this.setData({isiOS:system.system.indexOf('iOS')>=0?true:false})
-    //   this.setData({system:system});
-    //   this.setData({btn:btn})
-    // }catch(e){
-    //   return
-    // }
+
+  
     //获取openid
     wx.cloud.callFunction({
       name: 'login',
@@ -42,7 +33,7 @@ Page({
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
-        
+
       }
     })
     // 获取用户信息
@@ -55,7 +46,7 @@ Page({
               this.setData({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
-              })
+              });
             }
           })
         }
@@ -75,20 +66,20 @@ Page({
 
 
   // 上传图片
-  doUpload: function () {
+  doUpload: function() {
     // 选择图片
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
-      success: function (res) {
+      success: function(res) {
 
         wx.showLoading({
           title: '上传中',
         })
 
         const filePath = res.tempFilePaths[0]
-        
+
         // 上传图片
         const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
         wx.cloud.uploadFile({
@@ -100,7 +91,7 @@ Page({
             app.globalData.fileID = res.fileID
             app.globalData.cloudPath = cloudPath
             app.globalData.imagePath = filePath
-            
+
             wx.navigateTo({
               url: '../storageConsole/storageConsole'
             })

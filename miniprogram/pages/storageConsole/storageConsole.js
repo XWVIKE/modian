@@ -11,7 +11,7 @@ Page({
   },
 
   onLoad: function (options) {
-
+    console.log(app.globalData);
     const {
       fileID,
       cloudPath,
