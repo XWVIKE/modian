@@ -3,6 +3,7 @@ const app = getApp()
 
 Page({
   data: {
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     logged: false,
@@ -12,8 +13,46 @@ Page({
     system: app.globalData.system,
     btn: app.globalData.btn,
     hotSearch: '微信小程序',
+    detail: 0,
+    rec: [
+      {
+        img: '../../images/1.jpg',
+        link: ''
+      },
+      {
+        img: '../../images/2.jpg',
+        link: ''
+      },
+      {
+        img: '../../images/3.jpg',
+        link: ''
+      },
+    ],
+    hot: [
+      {
+        num: 1,
+        url: '../../images/1.jpg',
+        title: '开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。',
+        text: '剩余的空间是其他文字，或者内容。',
+        link: ''
+      },
+      {
+        num: 2,
+        url: '../../images/2.jpg',
+        title: '第二条测试文章题目',
+        text: '这个比较短。开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。',
+        link: ''
+      }
+    ]
   },
-
+  aa: function (e) {
+    this.setData({ detail: e.detail.current })
+  },
+  scrollTop: function () {
+    wx.pageScrollTo({
+      scrollTop: 0,
+    })
+  },
   onLoad: function() {
     if (!wx.cloud) {
       wx.redirectTo({
@@ -35,7 +74,7 @@ Page({
         console.error('[云函数] [login] 调用失败', err)
 
       }
-    })
+    });
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -43,12 +82,16 @@ Page({
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
+              
               this.setData({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
               });
             }
           })
+        }
+        else {
+          this.setData({logged:false})
         }
       }
     })

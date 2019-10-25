@@ -24,6 +24,6 @@ App({
     } catch (e) {
       return
     }
-  
+    wx.login()
   }
 })

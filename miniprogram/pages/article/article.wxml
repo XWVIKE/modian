@@ -1,0 +1,47 @@
+<!--miniprogram/pages/article/article.wxml-->
+<!-- 导航 -->
+<header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
+<!--  article-->
+<view class="art-box">
+    <!-- text -->
+    <view class="art-box-Placeholder">
+
+    </view>
+    <view class="art-box-text">
+        <text class="art-box-title">{{title}}</text>
+        <view class="art-box-ric">
+            <rich-text  nodes="{{nodes}}"></rich-text>
+        </view>
+        <view class="art-box-like">
+<!--            <view class="art-box-mes-num">{{messageNum}}回复</view>-->
+<!--            <view class="art-box-like-num">-->
+<!--                <image src="../../images/like.png" class="art-box-like-btn"></image>-->
+<!--                {{like}}-->
+<!--            </view>-->
+        </view>
+        <view class="addMessage">
+            <textarea bindinput="changeInput" placeholder="回复作者……" class="input-mes"></textarea>
+            <view catchtab="sendMessage" class="up-mes">send</view>
+        </view>
+        <view class="message">
+            <view class="message-item" wx:for="{{message}}">
+                <view class="message-item-ava">
+                    <image class="message-item-ava-img" src="{{}}"></image>
+                </view>
+                <view class="message-item-user">{{item.userName}}</view>
+                <view class="message-item-like">
+                    <image class="message-item-like-img"></image>
+                    {{item.likeNum}}
+                </view>
+                <view class="message-item-message">
+                    {{item.message}}
+                </view>
+                <view class="message-item-reply" wx:if="{{item.reply}}">
+                    <view class="message-item-reply-user">作者</view>
+                    <view class="message-item-reply-text">{{item.reply.text}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- message -->

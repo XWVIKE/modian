@@ -75,8 +75,9 @@ Page({
         });
         wx.setStorageSync("content","");
         that.editorCtx.clear();
+        app.globalData.sendArt_id = res._id;
         wx.showToast({
-          title: '发表成功'+res._id,
+          title: '发表成功',
         })
       },
       fail:e=>{

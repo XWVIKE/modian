@@ -13,15 +13,15 @@
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
     "pages/im/room/room",
-    "pages/home/home",
     "pages/search/search",
-    "pages/edit/edit"
+    "pages/edit/edit",
+    "pages/article/article"
   ],
   "window": {
     "backgroundColor": "#FFFFFF",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "墨点",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
   },
