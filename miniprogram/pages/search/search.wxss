@@ -1,13 +1,16 @@
 /* miniprogram/pages/search/search.wxss */
-page{
+
+page {
   background-color: #fff;
 }
-.search-box{
+
+.search-box {
   width: 100%;
   position: relative;
   /* background-color: #fafafa; */
 }
-.search-input{
+
+.search-input {
   display: block;
   position: absolute;
   top: 0;
@@ -18,7 +21,8 @@ page{
   padding-left: 30px;
   /* text-indent: 100px; */
 }
-.search-close{
+
+.search-close {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -26,25 +30,34 @@ page{
   font-size: 13pt;
   color: #5f80da;
 }
-.search-icon{
+
+.search-icon {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: 50rpx;
 }
-.hotTag{
+
+.hotTag {
   margin-top: 10px;
-  float: left;
+  /* float: left; */
   padding: 0 10px;
 }
-.hotSearch{
+
+.hotSearch {
   font-size: 13pt;
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 15px;
   margin-left: 10px;
 }
-.hotTag-item{
+
+.hotWord-box {
+  width: 100vw;
+  display: block;
+}
+
+.hotTag-item {
   font-size: 11pt;
   padding: 0 10px;
   text-align: center;
@@ -53,4 +66,33 @@ page{
   background-color: #ebebeb;
   border-radius: 100px;
   margin-bottom: 10px;
+}
+
+.searchResult-item {
+  width: 100vw;
+  height: 100rpx;
+  margin-bottom: 10rpx;
+  box-shadow: 0rpx 5rpx 10rpx #dfdfdf;
+}
+.searchResult-item navigator{
+  width: 100vw;
+  height: 100rpx;
+}
+.searchResult-item view {
+  text-indent: 20rpx;
+  width: 90vw;
+  font-size: 12pt;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.searchResult-item text {
+  width: 90vw;
+  display: block;
+  text-indent: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

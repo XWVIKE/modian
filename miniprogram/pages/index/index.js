@@ -6,7 +6,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     avatarUrl: './user-unlogin.png',
     userInfo: {},
-    logged: false,
+    logged: true,
     takeSession: false,
     requestResult: '',
     isiOS: app.globalData.isiOS,
@@ -14,8 +14,7 @@ Page({
     btn: app.globalData.btn,
     hotSearch: '微信小程序',
     detail: 0,
-    rec: [
-      {
+    rec: [{
         img: '../../images/1.jpg',
         link: ''
       },
@@ -28,8 +27,7 @@ Page({
         link: ''
       },
     ],
-    hot: [
-      {
+    hot: [{
         num: 1,
         url: '../../images/1.jpg',
         title: '开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。开始写一个完整得到小程序，需要把标题完整的写完，尽量写长一点。',
@@ -45,10 +43,12 @@ Page({
       }
     ]
   },
-  aa: function (e) {
-    this.setData({ detail: e.detail.current })
+  aa: function(e) {
+    this.setData({
+      detail: e.detail.current
+    })
   },
-  scrollTop: function () {
+  scrollTop: function() {
     wx.pageScrollTo({
       scrollTop: 0,
     })
@@ -60,15 +60,11 @@ Page({
       })
       return
     }
-
-  
-    //获取openid
     wx.cloud.callFunction({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
+        app.globalData.openid = res.result.openid;
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
@@ -79,31 +75,58 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框;
           wx.getUserInfo({
             success: res => {
-              
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              });
+              let data = res;
+              wx.cloud.callFunction({
+                name: 'createUser',
+                data: {
+                  openid: app.globalData.openid,
+                  userName: res.userInfo.nickName
+                },
+                success: res => {
+                  app.globalData.userInfo = res.userInfo;
+                  this.setData({
+                    avatarUrl: data.userInfo.avatarUrl,
+                    userInfo: data.userInfo
+                  });
+                },
+                fail: console.error
+              })
             }
           })
+        } else {
+          this.setData({
+            logged: false
+          })
         }
-        else {
-          this.setData({logged:false})
-        }
+      },
+      fail: e => {
+        this.setData({
+          logged: false
+        })
       }
     })
   },
-
   onGetUserInfo: function(e) {
     if (!this.data.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
+      wx.cloud.callFunction({
+        name: 'createUser',
+        data: {
+          openid: app.globalData.openid,
+          userName: e.detail.userInfo.nickName
+        },
+        success: res => {
+          this.setData({
+            logged: true,
+            avatarUrl: e.detail.userInfo.avatarUrl,
+            userInfo: e.detail.userInfo
+          })
+        },
+        fail:console.error
       })
+
     }
   },
 

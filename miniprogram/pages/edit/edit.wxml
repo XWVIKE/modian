@@ -48,11 +48,11 @@
 <!-- 编辑 -->
 <view class="edit" style="margin-top:{{btn.bottom+10}}px">
   <view class="edit-title">
-    <input bindinput="titleInput" confirm-type="done" placeholder="请输入标题……" class="title-input"></input>
+    <input bindinput="titleInput" show-confirm-bar="false" placeholder="请输入标题……" class="title-input"></input>
   </view>
   <!-- 内容编辑区域 -->
   <view class="edit-text">
-    <editor show-img-size="true" show-img-resize="true" show-img-toolbar="true" id="editor" bindstatuschange="onStatusChange" bindready="onEditorReady" bindinput="onContentChange" placeholder="请输入内容……"></editor>
+    <editor show-confirm-bar="false" show-img-size="true" show-img-resize="true" show-img-toolbar="true" id="editor" bindstatuschange="onStatusChange" bindready="onEditorReady" bindinput="onContentChange" placeholder="请输入内容……"></editor>
   </view>
   <!-- 工具栏区域 -->
   <scroll-view scroll-x="true" class="toolbar" catchtap="format" style="bottom: {{isIOS ? keyboardHeight : 0}}px">

@@ -1,0 +1,20 @@
+<!--miniprogram/pages/aboutme/aboutme.wxml-->
+<!-- 导航 -->
+<header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
+<!-- aboutme -->
+<view class="aboutme-page">
+<!-- avatar -->
+  <view class="avatar-box">
+    <image></image>
+  </view>
+  <!-- username -->
+  <view class="username"></view>
+  <!-- artList -->
+  <view class="artlist-box">
+    <view class="artList-itme" wx:for="{{artList}}" wx:key="*this">
+      <image></image>
+      <view></view>
+      <text></text>
+    </view>
+  </view>
+</view>

@@ -12,12 +12,53 @@ Page({
     system: app.globalData.system,
     btn: app.globalData.btn,
     inputValue: '',
+    searchResult:[],
+    clean:'取消',
+    showResult:false,
     hotTag: [
       '小程序开发', '发动反撒微信', '热发动ewdsa点', '我ewe中国', '时尚', '汽车', '数码', '动漫', '旅游', '美食'
     ],
     placeholder:'',
   },
-
+  changeInput:function(e){
+    let str = e.detail.value;
+    if(str.length>0){
+      this.setData({
+        clean: '清除',
+        inputValue: str,
+      })
+    }else{
+      this.setData({
+        clean:'取消',
+        inputValue: str,
+      })
+    }
+  },
+  search:function(){
+    wx.cloud.callFunction({
+      name:'search',
+      data:{
+        str:this.data.inputValue,
+      },
+      success:res=>{
+        this.setData({searchResult:[...res.result.data]});
+        this.setData({showResult:true})
+      },
+      fail:e=>{
+        console.log(e)
+      }
+    })
+  },
+  clean:function(){
+    if(this.data.inputValue.length<=0){
+      wx.navigateBack();
+    }else{
+      this.setData({
+        inputValue: '',
+        clean: '取消'
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */

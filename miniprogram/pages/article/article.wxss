@@ -78,8 +78,7 @@ page{
   position: relative;
 }
 .input-mes{
-  text-indent: 10rpx;
-  padding-top: 10rpx;
+  padding: 10rpx;
   width: 75vw;
   height: 150rpx;
   border-radius: 15rpx;
@@ -103,4 +102,50 @@ page{
   position: absolute;
   top: 0;
   right: 20rpx;
+}
+.message{
+  width: 100vw;
+  margin-top: 50rpx;
+}
+.message-item{
+  width: 90vw;
+  display: block;
+  min-height: 100rpx;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10rpx;
+  margin-bottom: 10rpx;
+  border-bottom: 1rpx solid #eaeaea;
+}
+.message-item-ava{
+  border-radius: 80rpx;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  display: inline-block;
+}
+.message-item-ava image{
+  width: 80rpx;
+  height: 80rpx;
+}
+.message-item-user{
+  font-size: 10pt;
+  font-weight: bold;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 100rpx;
+}
+.message-item-message{
+  font-size: 10pt;
+  display: inline-block;
+  margin-left: 100rpx;
+  margin-top: 50rpx;
+  margin-bottom: 10rpx;
+  max-width: 500rpx;
+  /*background-color: #0BB20C;*/
 }

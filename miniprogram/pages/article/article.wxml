@@ -20,21 +20,17 @@
 <!--            </view>-->
         </view>
         <view class="addMessage">
-            <textarea bindinput="changeInput" placeholder="回复作者……" class="input-mes"></textarea>
-            <view catchtab="sendMessage" class="up-mes">send</view>
+            <textarea value="{{input}}" bindinput="changeInput" placeholder="回复作者……" show-confirm-bar="{{false}}" class="input-mes"></textarea>
+            <view catchtap="sendMessage" class="up-mes">send</view>
         </view>
         <view class="message">
             <view class="message-item" wx:for="{{message}}">
                 <view class="message-item-ava">
-                    <image class="message-item-ava-img" src="{{}}"></image>
+                    <image class="message-item-ava-img" src="{{item.avatarUrl}}"></image>
                 </view>
                 <view class="message-item-user">{{item.userName}}</view>
-                <view class="message-item-like">
-                    <image class="message-item-like-img"></image>
-                    {{item.likeNum}}
-                </view>
                 <view class="message-item-message">
-                    {{item.message}}
+                    {{item.text}}
                 </view>
                 <view class="message-item-reply" wx:if="{{item.reply}}">
                     <view class="message-item-reply-user">作者</view>

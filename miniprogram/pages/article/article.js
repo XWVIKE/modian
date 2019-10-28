@@ -12,6 +12,7 @@ Page({
     showMask:false,
     _id:'',
     ok:false,
+    input:'',
     nodes:'',
     title:'',
     messageNum:0,
@@ -42,14 +43,26 @@ Page({
   },
   sendMessage:function(){
     const db = wx.cloud.database();
-    const data = {};
-    db.constructor('article').doc(this.data._id).update({
+    const u = app.globalData.userInfo;
+    const data = {
+      userName:u.nickName,
+      avatarUrl:u.avatarUrl,
+      time:new Date().getTime(),
+      text:this.data.input,
+      spare:{}
+    };
+    const _ = db.command;
+    db.collection('article').doc(this.data._id).update({
       data:{
-        $push:{
-          message:{...data}
-        }
+        message:_.push([{...data}])
       },
       success:res=>{
+        let arr = [...this.data.message];
+        arr.unshift({...data});
+        this.setData({
+          message:[...arr],
+          input:''
+        });
         wx.showToast({
           icon:'success',
           title:'留言成功'
@@ -64,8 +77,7 @@ Page({
     })
   },
   changeInput:function(e){
-    console.log(e)
-    this.setData()
+    this.setData({input:e.detail.value})
   },
   /**
    * Lifecycle function--Called when page is initially rendered

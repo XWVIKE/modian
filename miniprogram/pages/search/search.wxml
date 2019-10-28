@@ -4,14 +4,27 @@
 <!-- 搜索框 -->
 <view style="margin-top:{{btn.bottom+10}}px" class="search-page">
   <view style="height:{{btn.height-5}}px" class="search-box">
-    <input placeholder="{{placeholder}}" style="height:{{btn.height-5}}px;line-height:{{btn.height-5}}px" class="search-input" value=""></input>
+    <input focus="{{true}}" bindconfirm="search" confirm-type="search" placeholder="{{placeholder}}" style="height:{{btn.height-5}}px;line-height:{{btn.height-5}}px" class="search-input" bindinput="changeInput" value="{{inputValue}}"></input>
     <icon class="search-icon" type="search" size="15"></icon>
-    <text class="search-close">取消</text>
+    <text catchtap="clean" class="search-close">{{clean}}</text>
   </view>
   <!-- 热门标签 -->
   <view class="hotTag">
-    <view class="hotSearch">热门搜索：</view>
+    <view class="hotSearch">{{showResult?'搜索结果:':'热门搜索：'}}</view>
+  </view>
+  <!-- 内容 -->
+  <view class="hotWord-box" wx:if="{{!showResult}}">
     <text style="height:{{btn.height-5}}px;line-height:{{btn.height-5}}px" class="hotTag-item" wx:for="{{hotTag}}" wx:key="*this">{{item}}</text>
   </view>
-
+  <view wx:else>
+    <view wx:if="{{searchResult.length<=0}}">未搜索到相关内容</view>
+    <view wx:else>
+      <view class="searchResult-item" wx:for="{{searchResult}}" wx:key="*this">
+        <navigator url="../article/article?_id={{item._id}}">
+          <view>{{item.title}}</view>
+          <text>{{item.text}}</text>
+        </navigator>
+      </view>
+    </view>
+  </view>
 </view>
