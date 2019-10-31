@@ -34,32 +34,21 @@ page{
   width: 100vw;
   height: 80rpx;
   position: relative;
+  
+  
 }
-.art-box-mes-num{
+.art-box-like view{
+  width: 50rpx;
+  height: 50rpx;
   position: absolute;
-  top: 20rpx;
-  width: 100rpx;
-  font-size: 10pt;
-  color: #474747;
-  font-weight: bold;
-  height: 40rpx;
-  left: 70rpx;
- }
-.art-box-like-num{
-  text-align: right;
-  font-size: 10pt;
-  color: #474747;
-  width: 150rpx;
-  overflow: hidden;
-  height: 40rpx;
-  position: absolute;
-  top: 20rpx;
-  font-weight: bold;
-  right: 70rpx;
+  background-color: #fff;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -50%;
 }
-.art-box-like-btn{
-  width: 40rpx;
-  height: 40rpx;
+.art-box-like view image{
+  width: 100%;
+  height: 100%
 }
 .art-box-like::before{
   display: block;

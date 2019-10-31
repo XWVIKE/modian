@@ -17,7 +17,6 @@ App({
     try {
       const system = wx.getSystemInfoSync();
       const btn = wx.getMenuButtonBoundingClientRect()
-      console.log(btn);
       this.globalData['isiOS'] = system.system.indexOf('iOS') >= 0 ? true : false;
       this.globalData['system'] = { ...system };
       this.globalData['btn'] = { ...btn }

@@ -14,7 +14,7 @@
   </view>
   <!-- 内容 -->
   <view class="hotWord-box" wx:if="{{!showResult}}">
-    <text style="height:{{btn.height-5}}px;line-height:{{btn.height-5}}px" class="hotTag-item" wx:for="{{hotTag}}" wx:key="*this">{{item}}</text>
+    <text bindtap="kb" data-id="{{item}}" style="height:{{btn.height-5}}px;line-height:{{btn.height-5}}px" class="hotTag-item" wx:for="{{hotTag}}" wx:key="*this">{{item}}</text>
   </view>
   <view wx:else>
     <view wx:if="{{searchResult.length<=0}}">未搜索到相关内容</view>

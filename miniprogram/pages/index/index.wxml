@@ -16,16 +16,18 @@
   </view>
 </view>
 <view wx:else>
-  <header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
+  <header hot="{{fuck}}" height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
   <!-- 轮播图推荐内容 -->
   <view class="home">
     <view class="switch-image">
       <swiper duration="500" bindchange="aa" current="0" previous-margin="0px" next-margin="70px" circular="true" autoplay="true" class="swiper-box">
         <block wx:for="{{rec}}" wx:key="*this" class="swiper-block">
           <swiper-item style="width:50vw" class="swiper-item">
-            <image mode="aspectFill" lazy-load="true" src="{{item.img}}" class="{{detail===index?'beforeImg':'swiper-image'}}">
-              <view style="{{detail===index?'display:block':'display:none'}}" class="swiper-text">bbbbbbb</view>
+          <navigator class="article-nav" url="../article/article?_id={{item._id}}">
+          <image mode="aspectFill" lazy-load="true" src="{{item.titleImage}}" class="{{detail===index?'beforeImg':'swiper-image'}}">
+              <view style="{{detail===index?'display:block':'display:none'}}" class="swiper-text">{{item.title}}</view>
             </image>
+          </navigator>
           </swiper-item>
         </block>
       </swiper>
@@ -33,12 +35,12 @@
     <!-- 热门内容 -->
     <view class="hotEssay">
       <view wx:for="{{hot}}" wx:key="*this" class="hotItem">
-        <navigator class="article-nav" url="../article/article?_id=753391b25db2d2a10000d3800f6e1ee9">
+        <navigator class="article-nav" url="../article/article?_id={{item._id}}">
           <view class="itemImg">
-            <image class="itemImg-o" mode="aspectFill" src="{{item.url}}"></image>
+            <image class="itemImg-o" mode="aspectFill" src="{{item.titleImage}}"></image>
           </view>
           <view class="itemTitle">{{item.title}}</view>
-          <view class="itemText">{{item.text}}</view>
+          <view class="itemText">{{item.content.text}}</view>
           <view class="itemNum">{{item.num}}</view>
         </navigator>
       </view>
@@ -58,7 +60,7 @@
       </view>
       <navigator url="../edit/edit" open-type="navigate">
         <view class="leftFloat-box leftFloat-add">
-          <image class="leftFloat-img" src="../../images/add.png"></image>
+          <image class="leftFloat-img add-icon" src="../../images/add.png"></image>
         </view>
       </navigator>
 

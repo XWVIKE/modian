@@ -23,12 +23,12 @@ Page({
     title: '',
     content: '',
     message: [],
-    time:'',
+    time: '',
     isIncognito: false,
     hideTime: false,
     unallowMessage: false,
     sandMod: false,
-    like:0,
+    like: 0,
 
     selectImgIndex: null,
     imageList: [...Array(5).keys()].map((i) => {
@@ -37,76 +37,16 @@ Page({
       return `https://picsum.photos/id/${i}/200/200`
     })
   },
-  titleInput:function(e){
-    this.setData({title:e.detail.value})
-  },
-  switchChange:function(e){
-    let index = e.currentTarget.dataset.index;
-    let bool = e.detail.value;
-    let temp = index === '0' ? 'isIncognito' : index === '1' ? 'isShowEditTime' : index === '2' ? 'allowMessage' :'sandMod';
-    this.setData({[temp]:bool})
-  },
-  sendArt:function(){
-    const d = this.data;
-    const that = this;
-    const db = wx.cloud.database();
-    db.collection('article').add({
-      data:{
-        openid:d.openid,
-        titleImage:d.titleImage,
-        title:d.title,
-        content:d.content,
-        message:[],
-        time:new Date().getTime(),
-        isIncognito: d.isIncognito,
-        hideTime: d.hideTime,
-        unallowMessage: d.unallowMessage,
-        sandMod: d.sandMod,
-        like:0,
-        reserved1: '',
-        reserved2: 0,
-        reserved3: {},
-        reserved4: [],
-      },
-      success:res=>{
-        that.setData({
-          content:'',
-          title:''
-        });
-        wx.setStorageSync("content","");
-        that.editorCtx.clear();
-        app.globalData.sendArt_id = res._id;
-        wx.showToast({
-          title: '发表成功',
-        })
-      },
-      fail:e=>{
-        wx.showToast({
-          icon:'none',
-          title: '文章发表失败',
-        })
-      }
-    })
-  },
-  changeShowStatus: function() {
-    this.setData({
-      showStatus: !this.data.showStatus
-    })
-  },
-  readOnlyChange() {
-    this.setData({
-      readOnly: !this.data.readOnly
-    })
-  },
+
   onLoad() {
-    const platform = wx.getSystemInfoSync().platform
+    const platform = wx.getSystemInfoSync().platform;
     const isIOS = platform === 'ios'
     this.setData({
       isIOS
     })
     const that = this
-    this.updatePosition(0)
-    let keyboardHeight = 0
+    this.updatePosition(0);
+    let keyboardHeight = 0;
     wx.onKeyboardHeightChange(res => {
       if (res.height === keyboardHeight) return
       const duration = res.height > 0 ? res.duration * 1000 : 0
@@ -129,7 +69,7 @@ Page({
       windowHeight,
       platform
     } = wx.getSystemInfoSync()
-    let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : windowHeight
+    let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight - this.data.btn.bottom - 10 - 55) : (windowHeight-toolbarHeight - this.data.btn.bottom - 10 - 55)
     this.setData({
       editorHeight,
       keyboardHeight
@@ -145,12 +85,109 @@ Page({
     const navigationBarHeight = isIOS ? 44 : 48
     return statusBarHeight + navigationBarHeight
   },
+  titleInput: function(e) {
+    this.setData({
+      title: e.detail.value
+    })
+  },
+  switchChange: function(e) {
+    let index = e.currentTarget.dataset.index;
+    let bool = e.detail.value;
+    let temp = index === '0' ? 'isIncognito' : index === '1' ? 'isShowEditTime' : index === '2' ? 'allowMessage' : 'sandMod';
+    this.setData({
+      [temp]: bool
+    })
+  },
+  sendArt: function() {
+
+    const d = this.data;
+    if (d.title.length <= 0) {
+      wx.showToast({
+        icon: 'none',
+        title: "请完善标题",
+      })
+    } else if (d.content.text.length <= 0) {
+      wx.showToast({
+        icon: 'none',
+        title: '请完善内容',
+      })
+    } else if (d.titleImage === '') {
+      wx.showToast({
+        icon: 'none',
+        title: '请选择封面图片',
+      })
+    } else {
+      const that = this;
+      const db = wx.cloud.database();
+      let data = {
+        openid: d.openid,
+        titleImage: d.titleImage,
+        title: d.title,
+        content: d.content,
+        message: [],
+        time: new Date().getTime(),
+        isIncognito: d.isIncognito,
+        hideTime: d.hideTime,
+        unallowMessage: d.unallowMessage,
+        sandMod: d.sandMod,
+        like: 0,
+        reserved1: '',
+        reserved2: 0,
+        reserved3: {},
+        reserved4: [],
+      }
+      db.collection('article').add({
+        data: { ...data
+        },
+        success: res => {
+          data["_id"] = res._id;
+          wx.setStorageSync("newArt", data)
+          that.setData({
+            content: '',
+            title: ''
+          });
+          wx.setStorageSync("content", "");
+          that.editorCtx.clear();
+          app.globalData.sendArt_id = res._id;
+          wx.showToast({
+            title: '发表成功',
+          });
+          wx.redirectTo({
+            url: '../article/article?_id='+res._id
+          })
+        },
+        fail: e => {
+          wx.showToast({
+            icon: 'none',
+            title: '文章发表失败',
+          })
+        }
+      })
+    }
+  },
+  changeShowStatus: function() {
+    this.setData({
+      showStatus: !this.data.showStatus
+    })
+  },
+  closeFUCK: function() {
+    this.setData({
+      showStatus: true
+    })
+  },
+  readOnlyChange() {
+    this.setData({
+      readOnly: !this.data.readOnly
+    })
+  },
   onEditorReady() {
     const that = this
     wx.createSelectorQuery().select('#editor').context(function(res) {
       that.editorCtx = res.context;
       if (wx.getStorageSync('content')) {
-        that.setData({ content: wx.getStorageSync("content")})
+        that.setData({
+          content: wx.getStorageSync("content")
+        })
         that.editorCtx.setContents({
           html: wx.getStorageSync("content").html,
           success: res => {
@@ -225,16 +262,23 @@ Page({
     const that = this
     wx.chooseImage({
       count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+
       success: function(res) {
-        that.editorCtx.insertImage({
-          src: res.tempFilePaths[0],
-          data: {
-            id: 'abcd',
-            role: 'god'
-          },
-          width: '80%',
-          success: function() {
-            console.log('insert image success')
+        const filePath = res.tempFilePaths[0];
+        const cloudPath = (Math.random() * 1000000).toString(32).substr(0, 4) + new Date().getTime() + filePath.match(/\.[^.]+?$/)[0];
+        wx.cloud.uploadFile({
+          cloudPath,
+          filePath,
+          success: res => {
+            that.editorCtx.insertImage({
+              src: res.fileID,
+              width: '80%',
+              success: function() {
+                console.log('insert image success')
+              }
+            })
           }
         })
       }
@@ -256,11 +300,10 @@ Page({
           cloudPath,
           filePath,
           success: res => {
-
             that.setData({
               imageList: [...that.data.imageList, filePath],
               selectImgIndex: that.data.imageList.length,
-              titleImage:filePath,
+              titleImage: res.fileID,
             });
           },
           fail: e => {
@@ -286,66 +329,13 @@ Page({
     if (index === this.data.selectImgIndex) {
       this.setData({
         selectImgIndex: null,
-        titleImage:''
+        titleImage: ''
       })
     } else {
       this.setData({
         selectImgIndex: index,
-        titleImage:url
+        titleImage: url
       })
     }
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {},
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
 })

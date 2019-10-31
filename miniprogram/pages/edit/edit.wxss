@@ -1,8 +1,10 @@
 /* miniprogram/pages/edit/edit.wxss */
 @import "../../common/lib/weui.wxss";
+@import "./assets/iconfont.wxss";
 
 page {
   background-color: #fff;
+  margin-top:20rpx; 
 }
 
 .edit {
@@ -12,11 +14,9 @@ page {
 
 .edit-title {
   width: 100vw;
-  height: 70rpx;
+  height: 35px;
   position: relative;
 }
-
-
 
 .title-input {
   border-radius: 10rpx;
@@ -29,8 +29,9 @@ page {
   /* text-indent: 10px; */
   width: 80vw;
   padding-left: 10rpx;
-  height: 70rpx;
-  background-color: rgb(241, 241, 241);
+  height: 35px;
+  border: 1rpx solid rgb(214, 214, 214);
+  /* background-color: rgb(241, 241, 241); */
 }
 
 .showselectImg {
@@ -58,13 +59,13 @@ page {
 }
 
 .selectImg-tab {
-  width: 70rpx;
-  height: 70rpx;
+  width: 35px;
+  height: 35px;
   position: absolute;
   background-color: rgb(245, 245, 245);
   /* top: 0px; */
-  right: -68rpx;
-  border-radius:0  5px 5px 0;
+  right: -34px;
+  border-radius: 0 5px 5px 0;
 }
 
 .selectImg-tab-img {
@@ -89,17 +90,25 @@ page {
   background-color: rgb(78, 78, 78);
   transition: all 500ms;
 }
-.edit-text{
+
+.edit-text {
   width: 100vw;
-  height:80vh;
-  background-color: rgb(241, 241, 241);
-  position: absolute;
+  height: 70vh;
+  overflow: auto;
+  /* background-color: rgb(241, 241, 241); */
+  border: 1rpx solid rgb(214, 214, 214);
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
   margin-top: 10rpx;
   border-radius: 10rpx;
   padding: 12rpx 5rpx;
+  -webkit-overflow-scrolling: touch;
+  /* padding-bottom: 120rpx; */
+  
+  border-bottom: none;
 }
+
 .iconfont {
   display: inline-block;
   width: 50px;
@@ -109,12 +118,14 @@ page {
   text-align: center;
   line-height: 50px;
 }
+
 .ql-active {
-  color: #22C704;
+  color: #22c704;
 }
+
 .toolbar {
   box-sizing: border-box;
-  padding: 0 10px;
+  padding: 0 20rpx;
   height: 50px;
   width: 100%;
   position: fixed;
@@ -125,33 +136,36 @@ page {
   align-items: center;
   background-color: #fff;
   justify-content: space-between;
-  border: 1px solid #ECECEC;
+  border: 1px solid #ececec;
   border-left: none;
   border-right: none;
 }
+
 .ql-container {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  font-size: 16px;
+  font-size: 12pt;
   line-height: 1.5;
   overflow: auto;
-  padding: 10rpx 10rpx 70rpx 10rpx;
+  padding: 10rpx 10rpx 10rpx 10rpx;
+  -webkit-overflow-scrolling: touch;
   /* border: 1px solid #ECECEC; */
 }
-.send{
+.send {
   z-index: 50;
   position: fixed;
-  bottom: 150rpx;
-  right: 50rpx;
-  width: 100rpx;
-  height: 100rpx;
+  bottom: 75px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
   background-color: rgba(255, 255, 255, 0.527);
   border-radius: 100px;
   box-shadow: 5px 5px 5px rgb(209, 209, 209);
   overflow: hidden;
 }
-.send-img{
+
+.send-img {
   width: 60%;
   height: 60%;
   position: absolute;
@@ -159,59 +173,69 @@ page {
   left: 45%;
   transform: translateY(-50%) translateX(-50%);
 }
-.selectImg-box{
+
+.selectImg-box {
   padding: 20rpx;
 }
-.Article-options{
+
+.Article-options {
   margin-bottom: 10rpx;
 }
-.titleImg-up{
+
+.titleImg-up {
   padding: 20rpx;
 }
-.titleImg-up-box{
+.titleImg-up-box {
   width: 80vw;
   height: auto;
 }
-.titleImg-up-box-list{
+
+.titleImg-up-box-list {
   display: inline-block;
   width: 22vw;
   margin: 0 23rpx 20rpx 0;
   height: 22vw;
-  position: relative
+  position: relative;
 }
-.select-icon{
-display: none;
-position: absolute;
-top: 0;
-left: 0;
-width: 22vw;
-height: 22vw;
-background-color: rgba(53, 53, 53, 0.575);
+
+.select-icon {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22vw;
+  height: 22vw;
+  background-color: rgba(53, 53, 53, 0.575);
 }
-.select-icon-item{
+
+.select-icon-item {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 }
-.titleImg-up-box-item{
+
+.titleImg-up-box-item {
   width: 100%;
   height: 100%;
 }
-.titleImg-up-text{
+
+.titleImg-up-text {
   display: block;
   font-size: 17pt;
   font-weight: bold;
   margin-bottom: 30rpx;
 }
-.addImg{
+
+.addImg {
   position: relative;
   display: inline-block;
   width: 22vw;
   height: 22vw;
   background-color: rgb(228, 228, 228);
 }
-.addImg::after{
+
+.addImg::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -221,7 +245,8 @@ background-color: rgba(53, 53, 53, 0.575);
   height: 70rpx;
   background-color: rgb(138, 138, 138);
 }
-.addImg::before{
+
+.addImg::before {
   content: '';
   position: absolute;
   top: 50%;

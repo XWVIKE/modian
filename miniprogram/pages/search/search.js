@@ -15,10 +15,12 @@ Page({
     searchResult:[],
     clean:'取消',
     showResult:false,
-    hotTag: [
-      '小程序开发', '发动反撒微信', '热发动ewdsa点', '我ewe中国', '时尚', '汽车', '数码', '动漫', '旅游', '美食'
-    ],
+    hotTag: [],
     placeholder:'',
+  },
+  kb:function(e){
+    this.setData({inputValue:e.currentTarget.dataset.id});
+    this.search();
   },
   changeInput:function(e){
     let str = e.detail.value;
@@ -63,7 +65,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let arr = [];
+    let data = app.globalData.hotWord;
+    for(let i of data){
+      arr.push(i.text)
+    }
+    this.setData({
+      hotTag:[...arr]
+    })
   },
 
   /**

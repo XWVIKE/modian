@@ -7,10 +7,10 @@
 </view>
 <!-- 侧边栏 -->
 <view style="padding-top:{{btn.bottom+10}}px" class="{{showStatus?'showselectImg':'hideselectImg'}}">
-  <view style="top:{{btn.bottom+10}}px" bindtap="changeShowStatus" class="selectImg-tab">
+  <view style="top:{{btn.bottom+15}}px" bindtap="changeShowStatus" class="selectImg-tab">
     <image class="selectImg-tab-img" src="{{!showStatus?'../../images/left.png':'../../images/right.png'}}"></image>
   </view>
-  <view class="selectImg-box">
+  <!-- <view class="selectImg-box">
     <view class="Article-options-box">
       <view class="Article-options">
         <switch  bindchange="switchChange" data-index="0"></switch>
@@ -29,7 +29,7 @@
         <text>成为一颗砂粒</text>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class="titleImg-up">
     <text class="titleImg-up-text">选择文章封面图片</text>
     <view  class="titleImg-up-box">
@@ -43,16 +43,16 @@
   </view>
 </view>
 <!-- 黑色遮罩 -->
-<view class="{{!showStatus?'showmask':'hidemask'}}">
+<view bindtap="closeFUCK" class="{{!showStatus?'showmask':'hidemask'}}">
 </view>
 <!-- 编辑 -->
-<view class="edit" style="margin-top:{{btn.bottom+10}}px">
+<view class="edit" style="margin-top:{{btn.bottom+15}}px">
   <view class="edit-title">
-    <input bindinput="titleInput" show-confirm-bar="false" placeholder="请输入标题……" class="title-input"></input>
+    <input value="{{title}}" bindinput="titleInput" show-confirm-bar="false" placeholder="title……" class="title-input"></input>
   </view>
   <!-- 内容编辑区域 -->
-  <view class="edit-text">
-    <editor show-confirm-bar="false" show-img-size="true" show-img-resize="true" show-img-toolbar="true" id="editor" bindstatuschange="onStatusChange" bindready="onEditorReady" bindinput="onContentChange" placeholder="请输入内容……"></editor>
+  <view class="edit-text" style="height:{{editorHeight}}px">
+    <editor  show-img-size="true" show-img-resize="true" show-img-toolbar="true" id="editor" bindstatuschange="onStatusChange" bindready="onEditorReady" bindinput="onContentChange" placeholder="请输入内容……"></editor>
   </view>
   <!-- 工具栏区域 -->
   <scroll-view scroll-x="true" class="toolbar" catchtap="format" style="bottom: {{isIOS ? keyboardHeight : 0}}px">

@@ -15,14 +15,31 @@ Page({
     input:'',
     nodes:'',
     title:'',
-    messageNum:0,
-    like:0,
+    like:false,
     message:[],
   },
 
   /**
    * Lifecycle function--Called when page load
    */
+  like:function(){
+    const db = wx.cloud.database();
+    const _ = db.command;
+    this.setData({like:!this.data.like});
+    if(this.data.like){
+      db.collection('article').doc(this.data._id).update({
+        data:{
+          like:_.inc(1)
+        }
+      })
+    }else{
+      db.collection('article').doc(this.data._id).update({
+        data:{
+          like:_.inc(-1)
+        }
+      })
+    }
+  },
   onLoad: function(options) {
     let that = this;
     let _id = options._id;
@@ -31,7 +48,7 @@ Page({
       that.setData({
         nodes:res.data.content.html,
         title:res.data.title,
-        messageNum:res.data.message.length,
+        // messageNum:res.data.message.length,
         like:res.data.like,
         _id:_id,
         message:res.data.message,
@@ -107,12 +124,6 @@ Page({
 
   },
 
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function() {
-
-  },
 
   /**
    * Called when page reach bottom

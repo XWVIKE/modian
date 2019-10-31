@@ -3,7 +3,8 @@ Component({
     height: Number,
     bottom: Number,
     top: Number,
-    width:Number
+    width:Number,
+    hot:String,
   },
   data: {
     textInputValue: '',

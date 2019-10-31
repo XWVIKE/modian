@@ -3,18 +3,24 @@
 <header height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
 <!-- aboutme -->
 <view class="aboutme-page">
-<!-- avatar -->
-  <view class="avatar-box">
-    <image></image>
+  <!-- avatar -->
+  <view class="ava">
+    <view class="avatar-box">
+      <image src="{{userInfo.avatarUrl}}"></image>
+    </view>
+    <!-- username -->
+    <view class="username">{{userInfo.nickName}}</view>
   </view>
-  <!-- username -->
-  <view class="username"></view>
+
   <!-- artList -->
   <view class="artlist-box">
+  <view class="list-title">文章列表</view>
     <view class="artList-itme" wx:for="{{artList}}" wx:key="*this">
-      <image></image>
-      <view></view>
-      <text></text>
+      <navigator url="../article/article?_id={{item._id}}">
+        <image src="{{item.titleImage}}"></image>
+        <view>{{item.title}}</view>
+        <text>{{item.text}}</text>
+      </navigator>
     </view>
   </view>
 </view>

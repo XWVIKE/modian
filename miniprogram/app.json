@@ -7,7 +7,7 @@
     "pages/aboutme/aboutme"
   ],
   "window": {
-    "backgroundColor": "#FFFFFF",
+    "backgroundColor": "#d4fc79",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "墨点",

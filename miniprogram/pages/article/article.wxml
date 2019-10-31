@@ -13,18 +13,16 @@
             <rich-text  nodes="{{nodes}}"></rich-text>
         </view>
         <view class="art-box-like">
-<!--            <view class="art-box-mes-num">{{messageNum}}回复</view>-->
-<!--            <view class="art-box-like-num">-->
-<!--                <image src="../../images/like.png" class="art-box-like-btn"></image>-->
-<!--                {{like}}-->
-<!--            </view>-->
+            <view>
+              <image catchtap="like" src="{{like?'../../images/like.png':'../../images/unlike.png'}}"></image>
+            </view>
         </view>
         <view class="addMessage">
             <textarea value="{{input}}" bindinput="changeInput" placeholder="回复作者……" show-confirm-bar="{{false}}" class="input-mes"></textarea>
             <view catchtap="sendMessage" class="up-mes">send</view>
         </view>
         <view class="message">
-            <view class="message-item" wx:for="{{message}}">
+            <view class="message-item" wx:key="*this" wx:for="{{message}}">
                 <view class="message-item-ava">
                     <image class="message-item-ava-img" src="{{item.avatarUrl}}"></image>
                 </view>

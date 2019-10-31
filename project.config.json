@@ -22,7 +22,7 @@
 	},
 	"appid": "wxcb5f46d638701a2b",
 	"projectname": "shop",
-	"libVersion": "2.9.0",
+	"libVersion": "2.9.1",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",

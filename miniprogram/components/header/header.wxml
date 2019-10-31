@@ -2,7 +2,7 @@
 <view style="height:{{bottom+10}}px" class="header">
   <navigator url="../../pages/search/search">
     <view wx:if="{{status===0}}" style="height:{{height}}px;top:{{top}}px;line-height:{{height}}px" class="search">
-    {{textInputValue}}</view>
+    {{hot}}</view>
   </navigator>
   <view wx:if="{{status===1||status===-1}}" style="height:{{height}}px;top:{{top}}px;width:{{width}}px" class="leftBtn">
     <image class="back" bindtap="back" src="../../images/back.png" style="height:{{height-10}}px;width:{{height-10}}px"></image>
