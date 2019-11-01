@@ -117,6 +117,7 @@ Page({
         title: '请选择封面图片',
       })
     } else {
+      
       const that = this;
       const db = wx.cloud.database();
       let data = {
