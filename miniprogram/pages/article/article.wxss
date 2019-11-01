@@ -2,6 +2,7 @@
 page{
   background-color: #fff;
   margin-top: 180rpx;
+  padding-bottom: 100rpx;
 }
 .art-box{
   width: 100%;
@@ -33,6 +34,7 @@ page{
 .art-box-like{
   width: 100vw;
   height: 80rpx;
+  margin-top: 75rpx;
   position: relative;
   
   
@@ -45,6 +47,13 @@ page{
   left: 50%;
   transform: translateX(-50%);
   top: -50%;
+}
+.likenum{
+  display: block;
+  margin-top: 10rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .art-box-like view image{
   width: 100%;
@@ -63,34 +72,31 @@ page{
 }
 .addMessage{
   width: 100vw;
-  height: 150rpx;
   position: relative;
 }
 .input-mes{
   padding: 10rpx;
   width: 75vw;
-  height: 150rpx;
+  margin-left: 20rpx;
   border-radius: 15rpx;
-  position: absolute;
-  top: 0;
-  left: 20rpx;
+  display: inline-block;
   border: 1rpx solid #a8a8a8;
   box-shadow: 5rpx 5rpx 10rpx #e4e4e4;
 }
 .up-mes{
   width: 15vw;
-  height: 100rpx;
+  height: 30px;
   background-color: #0BB20C;
   text-align: center;
-  line-height: 100rpx;
+  line-height: 30px;
   box-shadow: 5rpx 5rpx 10rpx #e4e4e4;
   font-size: 12pt;
-  color: #FFFFFF;
-  font-weight: bold;
-  border-radius: 15rpx;
-  position: absolute;
+  position:absolute;
   top: 0;
-  right: 20rpx;
+  color: #FFFFFF;
+  margin-left: 20rpx;
+  border-radius: 15rpx;
+  display: inline-block;
 }
 .message{
   width: 100vw;

@@ -4,7 +4,8 @@
     "pages/search/search",
     "pages/edit/edit",
     "pages/article/article",
-    "pages/aboutme/aboutme"
+    "pages/aboutme/aboutme",
+    "pages/login/login"
   ],
   "window": {
     "backgroundColor": "#d4fc79",

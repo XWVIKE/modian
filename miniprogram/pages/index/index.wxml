@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <!-- 导航 -->
-<view class="login" wx:if="{{!logged}}">
+<!-- <view class="login" wx:if="{{!logged}}">
   <view wx:if="{{canIUse}}">
     <view class="login-heade">
       <image src="../../images/logo.png"></image>
@@ -14,8 +14,8 @@
   <view wx:else>
     请升级微信版本
   </view>
-</view>
-<view wx:else>
+</view> -->
+<view >
   <header hot="{{fuck}}" height="{{btn.height}}" bottom="{{btn.bottom}}" top="{{btn.top}}" width="{{btn.width}}"></header>
   <!-- 轮播图推荐内容 -->
   <view class="home">
@@ -58,11 +58,11 @@
       <view bindtap="scrollTop" class="leftFloat-box leftFloat-top">
         <image mode="aspectFill" class="leftFloat-img l-t" src="../../images/top.png"></image>
       </view>
-      <navigator url="../edit/edit" open-type="navigate">
-        <view class="leftFloat-box leftFloat-add">
+      
+        <view bindtap="goEdit" class="leftFloat-box leftFloat-add">
           <image class="leftFloat-img add-icon" src="../../images/add.png"></image>
         </view>
-      </navigator>
+     
 
     </view>
   </view>

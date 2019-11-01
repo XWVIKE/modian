@@ -9,92 +9,114 @@ Page({
     isiOS: app.globalData.isiOS,
     system: app.globalData.system,
     btn: app.globalData.btn,
-    showMask:false,
-    _id:'',
-    ok:false,
-    input:'',
-    nodes:'',
-    title:'',
-    like:false,
-    message:[],
+    showMask: false,
+    _id: '',
+    ok: false,
+    input: '',
+    nodes: '',
+    title: '',
+    like: false,
+    message: [],
   },
 
   /**
    * Lifecycle function--Called when page load
    */
-  like:function(){
-    const db = wx.cloud.database();
-    const _ = db.command;
-    this.setData({like:!this.data.like});
-    if(this.data.like){
-      db.collection('article').doc(this.data._id).update({
-        data:{
-          like:_.inc(1)
-        }
+  like: function() {
+    console.log(app.globalData.logged)
+    if (!app.globalData.logged) {
+      wx.navigateTo({
+        url: '../login/login',
       })
-    }else{
-      db.collection('article').doc(this.data._id).update({
-        data:{
-          like:_.inc(-1)
-        }
+    } else {
+      const db = wx.cloud.database();
+      const _ = db.command;
+      this.setData({
+        like: !this.data.like
       })
+      if (this.data.like) {
+        this.setData({
+          likeNum: this.data.likeNum + 1
+        });
+        db.collection('article').doc(this.data._id).update({
+          data: {
+            like: _.inc(1)
+          }
+        })
+      } else {
+        this.setData({
+          likeNum: this.data.likeNum - 1
+        });
+        db.collection('article').doc(this.data._id).update({
+          data: {
+            like: _.inc(-1)
+          }
+        })
+      }
     }
   },
   onLoad: function(options) {
     let that = this;
     let _id = options._id;
     const db = wx.cloud.database();
-    db.collection('article').doc(_id).get().then(res=>{
+    db.collection('article').doc(_id).get().then(res => {
       that.setData({
-        nodes:res.data.content.html,
-        title:res.data.title,
+        nodes: res.data.content.html,
+        title: res.data.title,
         // messageNum:res.data.message.length,
-        like:res.data.like,
-        _id:_id,
-        message:res.data.message,
+        // like:res.data.like,
+        likeNum: res.data.like,
+        _id: _id,
+        message: res.data.message,
       })
     });
   },
-  changeMask:function(){
-    this.setData({showMask:!this.data.showMask})
+  changeMask: function() {
+    this.setData({
+      showMask: !this.data.showMask
+    })
   },
-  sendMessage:function(){
+  sendMessage: function() {
     const db = wx.cloud.database();
     const u = app.globalData.userInfo;
     const data = {
-      userName:u.nickName,
-      avatarUrl:u.avatarUrl,
-      time:new Date().getTime(),
-      text:this.data.input,
-      spare:{}
+      userName: u.nickName,
+      avatarUrl: u.avatarUrl,
+      time: new Date().getTime(),
+      text: this.data.input,
+      spare: {}
     };
     const _ = db.command;
     db.collection('article').doc(this.data._id).update({
-      data:{
-        message:_.push([{...data}])
+      data: {
+        message: _.push([{ ...data
+        }])
       },
-      success:res=>{
+      success: res => {
         let arr = [...this.data.message];
-        arr.unshift({...data});
+        arr.unshift({ ...data
+        });
         this.setData({
-          message:[...arr],
-          input:''
+          message: [...arr],
+          input: ''
         });
         wx.showToast({
-          icon:'success',
-          title:'留言成功'
+          icon: 'success',
+          title: '留言成功'
         })
       },
-      fail:e=>{
+      fail: e => {
         wx.showToast({
-          icon:'none',
-          title:'留言失败'
+          icon: 'none',
+          title: '留言失败'
         })
       }
     })
   },
-  changeInput:function(e){
-    this.setData({input:e.detail.value})
+  changeInput: function(e) {
+    this.setData({
+      input: e.detail.value
+    })
   },
   /**
    * Lifecycle function--Called when page is initially rendered

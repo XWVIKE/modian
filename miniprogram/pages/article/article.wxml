@@ -16,9 +16,10 @@
             <view>
               <image catchtap="like" src="{{like?'../../images/like.png':'../../images/unlike.png'}}"></image>
             </view>
+            <text class="likenum">{{likeNum}}</text>
         </view>
         <view class="addMessage">
-            <textarea value="{{input}}" bindinput="changeInput" placeholder="回复作者……" show-confirm-bar="{{false}}" class="input-mes"></textarea>
+            <textarea cursor-spacing="10" value="{{input}}" auto-height="true" bindinput="changeInput" placeholder="回复作者……" show-confirm-bar="{{false}}" class="input-mes"></textarea>
             <view catchtap="sendMessage" class="up-mes">send</view>
         </view>
         <view class="message">

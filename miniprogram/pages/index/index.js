@@ -3,10 +3,8 @@ const app = getApp()
 
 Page({
   data: {
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    avatarUrl: './user-unlogin.png',
+     avatarUrl: './user-unlogin.png',
     userInfo: {},
-    logged: true,
     takeSession: false,
     requestResult: '',
     isiOS: app.globalData.isiOS,
@@ -17,6 +15,17 @@ Page({
     rec: [],
     fuck: '',
     hot: []
+  },
+  goEdit:function(){
+    if(app.globalData.logged){
+      wx.navigateTo({
+        url: '../edit/edit',
+      })
+    } else {
+      wx.navigateTo({
+        url: '../login/login',
+      })
+      }
   },
   aa: function(e) {
     this.setData({
@@ -48,11 +57,10 @@ Page({
 
         this.setData({
           rec: b.slice(0, 3),
-          hot: b,
+          hot: b.reverse(),
           fuck: res.result.hotWord[0].text
         })
         app.globalData.hotWord = res.result.hotWord;
-        console.log(this.data.hot);
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
@@ -67,36 +75,32 @@ Page({
           wx.getUserInfo({
             success: res => {
               app.globalData.userInfo = res.userInfo;
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              });
+              app.globalData.logged = true;
+              // this.setData({
+              //   userInfo: res.userInfo
+              // });
 
             }
           })
         } else {
-          this.setData({
-            logged: false
-          })
+          app.globalData.logged = false;
         }
       },
       fail: e => {
-        this.setData({
-          logged: false
-        })
+        app.globalData.logged = false;
       }
     })
   },
-  onGetUserInfo: function(e) {
-    if (!this.data.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
-      })
+  // onGetUserInfo: function(e) {
+  //   if (!this.data.logged && e.detail.userInfo) {
+  //     this.setData({
+  //       logged: true,
+  //       avatarUrl: e.detail.userInfo.avatarUrl,
+  //       userInfo: e.detail.userInfo
+  //     })
 
-    }
-  },
+  //   }
+  // },
   onShow: function() {
     if (wx.getStorageSync("newArt") === "") {
       return

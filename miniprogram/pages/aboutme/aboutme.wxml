@@ -9,13 +9,16 @@
       <image src="{{userInfo.avatarUrl}}"></image>
     </view>
     <!-- username -->
-    <view class="username">{{userInfo.nickName}}</view>
+    <view wx:if="{{logged}}" class="username">{{userInfo.nickName}}</view>
+    <view class="aboutme-login" wx:else>
+      <button  bindtap="login">登录</button>
+    </view>
   </view>
 
   <!-- artList -->
   <view class="artlist-box">
   <view class="list-title">文章列表</view>
-    <view class="artList-itme" wx:for="{{artList}}" wx:key="*this">
+    <view  class="artList-itme" wx:for="{{artList}}" wx:key="*this">
       <navigator url="../article/article?_id={{item._id}}">
         <image src="{{item.titleImage}}"></image>
         <view>{{item.title}}</view>
